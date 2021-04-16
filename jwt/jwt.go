@@ -36,7 +36,7 @@ func ProcessToken(authHeader string) (*models.Claim, error) {
 	if len(authHeader) <= 0 {
 		return claims, errors.New("No auth token present")
 	}
-	splitToken := strings.Split(authHeader, "Bearer")
+	splitToken := strings.Split(authHeader, "Bearer ")
 	if len(splitToken) != 2 {
 		return claims, errors.New("Invalid token format")
 	}

@@ -3,7 +3,12 @@ package main
 import (
 	"net/http"
 	"log"
+	"os"
+
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
+	env "github.com/joho/godotenv"
+
 	"./routes"
 	"./db"
 )
@@ -19,14 +24,24 @@ func (s *Server) Initialize(addr string) {
 }
 
 func (s *Server) Run() {
+	corsOpt := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodPatch, http.MethodOptions},
+		AllowedHeaders: []string{"Accept", "content-type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization"},
+		AllowCredentials: true,
+	})
+	http.Handle("/", corsOpt.Handler(s.Router))
 	log.Println("Server running on", s.Addr)
-	http.Handle("/", s.Router)
 	log.Fatal(http.ListenAndServe(s.Addr, nil))
 }
 
 func main() {
+	err := env.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
 	db.Migrate()
 	server := Server{}
-	server.Initialize(":5050")
+	server.Initialize(os.Getenv("APP_URL"))
 	server.Run()
 }

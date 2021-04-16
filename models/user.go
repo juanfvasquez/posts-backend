@@ -14,7 +14,7 @@ type User struct {
 	Comments 	[]Comment `gorm:"foreignKey:UserId" json:"comments,omitempty"`
 }
 
-func (u *User) AfterFind(tx *gorm.DB) (err error) {
-	u.Password = ""
-	return
-}
+// func (u *User) AfterFind(tx *gorm.DB) (err error) {
+// 	u.Password = ""
+// 	return
+// }

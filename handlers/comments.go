@@ -77,11 +77,7 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	comment := db.CreateComment(body)
-	status := http.StatusOK
-	if comment.ID <= 0 {
-		status = http.StatusNoContent
-	}
-	response.Json(comment, status, w)
+	response.Json(comment, http.StatusCreated, w)
 	msg := models.Message{Event: "new::comment", PostId: comment.PostId, Comment: comment}
 	ws.Broadcast(msg)
 }

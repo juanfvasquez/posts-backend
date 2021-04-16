@@ -64,7 +64,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	post := db.CreatePost(body)
-	response.Json(post, http.StatusOK, w)
+	response.Json(post, http.StatusCreated, w)
 	msg := models.Message{Event: "new::post", Post: post}
 	ws.Broadcast(msg)
 }

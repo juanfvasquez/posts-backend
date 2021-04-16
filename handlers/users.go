@@ -63,7 +63,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	body.Password = pass
 	user := db.CreateUser(body)
-	response.Json(user, http.StatusOK, w)
+	response.Json(user, http.StatusCreated, w)
 }
 
 func validateUser(user models.User) (err error) {
