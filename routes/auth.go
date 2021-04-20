@@ -1,7 +1,7 @@
 package routes
 
 import (
-	. "../handlers"
+	. "postsbackend/handlers"
 )
 
 func registerAuthRoutes() {

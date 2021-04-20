@@ -1,8 +1,8 @@
 package routes
 
 import (
-	. "../handlers"
-	. "../middlewares"
+	. "postsbackend/handlers"
+	. "postsbackend/middlewares"
 )
 
 func registerPostsRoutes() {

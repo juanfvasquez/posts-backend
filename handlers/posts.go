@@ -7,11 +7,11 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"../db"
-	"../models"
-	"../io/response"
-	"../io/request"
-	ws "../sockets"
+	"postsbackend/db"
+	"postsbackend/models"
+	"postsbackend/io/response"
+	"postsbackend/io/request"
+	ws "postsbackend/sockets"
 )
 
 func GetPosts(w http.ResponseWriter, r *http.Request) {

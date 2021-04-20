@@ -1,7 +1,7 @@
 package db
 
 import (
-	"../models"
+	"postsbackend/models"
 )
 
 func GetCommentsByPost(postId uint) (comments []models.Comment) {

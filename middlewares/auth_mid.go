@@ -3,7 +3,7 @@ package middlewares
 import (
 	"net/http"
 
-	"../jwt"
+	"postsbackend/jwt"
 )
 
 func Auth(next http.HandlerFunc) http.HandlerFunc {

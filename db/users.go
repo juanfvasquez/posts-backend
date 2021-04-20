@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"../models"
+	"postsbackend/models"
 )
 
 var urls = []string{

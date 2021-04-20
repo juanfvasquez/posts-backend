@@ -5,11 +5,11 @@ import (
 	
 	"golang.org/x/crypto/bcrypt"
 
-	"../db"
-	"../models"
-	"../jwt"
-	"../io/response"
-	"../io/request"
+	"postsbackend/db"
+	"postsbackend/models"
+	"postsbackend/jwt"
+	"postsbackend/io/response"
+	"postsbackend/io/request"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {

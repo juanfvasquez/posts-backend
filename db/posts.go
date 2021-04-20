@@ -3,32 +3,32 @@ package db
 import (
 	"gorm.io/gorm"
 
-	"../models"
+	"postsbackend/models"
 )
 
 const COMMENTS_PER_POST = 1
 
 func GetPosts() (posts []models.Post) {
 	db := GetConnection()
-	db.Preload("User").Preload("Comments", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Find(&posts)
+	db.Preload("User").Preload("Reactions").Preload("Comments", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Find(&posts)
 	return
 }
 
 func GetPostsByUser(userId uint) (posts []models.Post) {
 	db := GetConnection()
-	db.Preload("User").Preload("Comments.User", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Find(&posts, "user_id = ?", userId)
+	db.Preload("User").Preload("Reactions").Preload("Comments.User", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Find(&posts, "user_id = ?", userId)
 	return
 }
 
 func GetPostsPaginated(limit, offset int) (posts []models.Post) {
 	db := GetConnection()
-	db.Preload("User").Preload("Comments.User", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Limit(limit).Offset(offset).Find(&posts)
+	db.Preload("User").Preload("Reactions").Preload("Comments.User", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Limit(limit).Offset(offset).Find(&posts)
 	return
 }
 
 func GetPost(id uint) (post models.Post) {
 	db := GetConnection()
-	db.Preload("User").Preload("Comments.User", preloadLatestComment(COMMENTS_PER_POST)).Order("created_at DESC").Find(&post, id)
+	db.Preload("User").Preload("Reactions").Preload("Comments.User", preloadAllComments()).Order("created_at DESC").Find(&post, id)
 	return
 }
 
@@ -39,8 +39,14 @@ func CreatePost(body models.Post) (post models.Post) {
 	return
 }
 
-func preloadLatestComment(num int) func (*gorm.DB) *gorm.DB {
-	return func (db *gorm.DB) *gorm.DB {
+func preloadLatestComment(num int) func(*gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
 		return db.Order("created_at DESC").Limit(num)
+	}
+}
+
+func preloadAllComments() func(*gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Order("created_at DESC")
 	}
 }

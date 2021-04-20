@@ -9,8 +9,8 @@ import (
 	"github.com/rs/cors"
 	env "github.com/joho/godotenv"
 
-	"./routes"
-	"./db"
+	"postsbackend/routes"
+	"postsbackend/db"
 )
 
 type Server struct {
@@ -24,6 +24,7 @@ func (s *Server) Initialize(addr string) {
 }
 
 func (s *Server) Run() {
+	log.Println("Server running on", s.Addr)
 	corsOpt := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodPatch, http.MethodOptions},
@@ -31,7 +32,6 @@ func (s *Server) Run() {
 		AllowCredentials: true,
 	})
 	http.Handle("/", corsOpt.Handler(s.Router))
-	log.Println("Server running on", s.Addr)
 	log.Fatal(http.ListenAndServe(s.Addr, nil))
 }
 

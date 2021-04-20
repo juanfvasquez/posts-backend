@@ -6,8 +6,8 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"../models"
-	"../io/response"
+	"postsbackend/models"
+	"postsbackend/io/response"
 )
 
 var clients = make(map[*websocket.Conn]bool)

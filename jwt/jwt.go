@@ -6,7 +6,7 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"../models"
+	"postsbackend/models"
 )
 
 var JWT_KEY = []byte("softlond.co@golang_course_2021")

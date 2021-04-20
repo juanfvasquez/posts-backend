@@ -8,11 +8,11 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"../db"
-	"../io/response"
-	"../io/request"
-	"../models"
-	"../crypto"
+	"postsbackend/db"
+	"postsbackend/io/response"
+	"postsbackend/io/request"
+	"postsbackend/models"
+	"postsbackend/crypto"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {

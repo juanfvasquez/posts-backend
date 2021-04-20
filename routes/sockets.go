@@ -1,7 +1,7 @@
 package routes
 
 import (
-	. "../sockets"
+	. "postsbackend/sockets"
 )
 
 func registerSocketRoutes() {
